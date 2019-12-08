@@ -1,3 +1,5 @@
+package controller;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,8 +20,8 @@ public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 2152688902826659767L;
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        MysqlCon databaseCon = new MysqlCon("webdevcw", "root", "");
-//        Statement statement = databaseCon.getStatement();
+		// MysqlCon databaseCon = new MysqlCon("webdevcw", "root", "");
+		// Statement statement = databaseCon.getStatement();
     	
     	Connection connection;
      	int id = 1;
@@ -29,9 +31,7 @@ public class RegisterServlet extends HttpServlet {
         int remember = 1;
         
         String username = name.split(" ")[0];
-
         System.out.println(name+" - "+password+" - "+email);
-    	
         System.out.print("Ola pessoal");
         
     	try {
