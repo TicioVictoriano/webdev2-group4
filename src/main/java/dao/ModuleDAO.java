@@ -68,4 +68,28 @@ private MysqlCon msCon;
 		
 		return modules;
 	}
+	
+	public Module getModule(int id) {
+		Module module;
+		
+		try {
+    		String sql = "SELECT * FROM users WHERE id='"+id+"'";
+		    Statement statement = msCon.getStatement();
+		    
+		    ResultSet results = statement.executeQuery(sql);
+		    module = new Module();
+		    
+		    while (results.next()) {
+		      module.setName(results.getString("name"));
+		      module.setDescription(results.getString("description"));
+		      module.setId(results.getInt("id"));
+		      module.setStatus_id(results.getInt("status_id"));
+		    }
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+		return module;
+	}
 }
