@@ -14,16 +14,17 @@ import javax.swing.JOptionPane;
 import org.apache.catalina.connector.Response;
 
 import dao.ModuleDAO;
-import dao.UserDAO;
-import model.Module;
+import dao.ProjectDAO;
+import model.Project;
 import model.User;
+import model.Module;
 import model.Operations;
 
 /**
- * Servlet implementation class ModuleController
+ * Servlet implementation class ProjectController
  */
-@WebServlet("/module")
-public class ModuleController extends HttpServlet {
+@WebServlet("/project")
+public class ProjectController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	/**
@@ -67,13 +68,16 @@ public class ModuleController extends HttpServlet {
 			}
 			
 			if(operation == Operations.CREATE.ordinal()) {
-				ModuleDAO moduleDAO = new ModuleDAO();
+		        ModuleDAO moduleDAO = new ModuleDAO();
 		        ArrayList<Module> modules = moduleDAO.getModules(user.id);
 		        
-		        session.setAttribute("modules", modules);
-//		        session.setAttribute("operation", Operations.VIEW);
+		        ProjectDAO projectDAO = new ProjectDAO();
+		        ArrayList<Project> projects = projectDAO.getProjectsByUserId(user.id);
 		        
-		        req.getRequestDispatcher("create_module.jsp").forward(req, resp);
+		        session.setAttribute("modules", modules);
+		        session.setAttribute("projects", projects);
+		        
+		        req.getRequestDispatcher("project.jsp").forward(req, resp);
 	        }else {
 	        	String str[] = req.getHeader("referer").split("/");
 	        	resp.sendRedirect(""+str[str.length-1].toString());
@@ -90,26 +94,30 @@ public class ModuleController extends HttpServlet {
 		User user = (User) session.getAttribute("user");
 		
 		String name = request.getParameter("name");
+        String completionDate = request.getParameter("completionDate");
+        String intendedDate = request.getParameter("intendedDate");
         String description = request.getParameter("description");
-		int id = Integer.parseInt(request.getParameter("id"));
+        int user_id = user.id;
+        int completed = 0;
+        int status_id = 1;
+        int module_id = Integer.parseInt(request.getParameter("module_id"));
 		
-        Module module = new Module(id, name, description, 1, user.getId());      
-        ModuleDAO moduleDAO = new ModuleDAO();
-        boolean updated = moduleDAO.updateModule(module);
+		Project project = new Project(name, description, completionDate, intendedDate, user_id, completed, status_id, module_id);
+		
+        ProjectDAO projectDAO = new ProjectDAO();
+        boolean updated = projectDAO.updateProject(project);
         
-        ArrayList<Module> modules = moduleDAO.getModules(user.id);
+        ArrayList<Project> projects = projectDAO.getProjects(user.id);
         
-        session.setAttribute("modules", modules);
+        session.setAttribute("projects", projects);
         session.setAttribute("operation", Operations.VIEW);
         
         if(updated) {
         	try {
-				request.getRequestDispatcher("create_module.jsp").forward(request, response);
+				request.getRequestDispatcher("project.jsp").forward(request, response);
 			} catch (ServletException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
     	}else {
@@ -122,21 +130,35 @@ public class ModuleController extends HttpServlet {
 		User user = (User) session.getAttribute("user");
 		
 		String name = request.getParameter("name");
-        String description = request.getParameter("description");
+		String description = request.getParameter("description");
+        String completionDate = request.getParameter("completionDate");
+        String intendedDate = request.getParameter("intendedDate");
+        int user_id = user.id;
+        int completed = 0;
+        int status_id = 1;
+        int module_id = Integer.parseInt(request.getParameter("modules_id"));
         
-        Module module = new Module(name, description, 1, user.getId());      
-        ModuleDAO moduleDAO = new ModuleDAO();
-        boolean registered = moduleDAO.registerModule(module);
+//      this.id = id;
+//		this.name = name;
+//		this.completionDate = completionDate;
+//		this.intendedDate = intendedDate;
+//		this.user_id = user_id;
+//		this.completed = completed;
+//		this.status_id = status_id;
+//		this.modules_id = modules_id;
         
+        Project project = new Project(name, description, completionDate, intendedDate, user_id, completed, status_id, module_id);      
+        ProjectDAO projectDAO = new ProjectDAO();
+        boolean registered = projectDAO.registerProject(project);
         
-        ArrayList<Module> modules = moduleDAO.getModules(user.id);
+        ArrayList<Project> projects = projectDAO.getProjects(module_id);
         
-        session.setAttribute("modules", modules);
+        session.setAttribute("projects", projects);
         session.setAttribute("operation", Operations.VIEW);
         
         if(registered) {
         	try {
-				request.getRequestDispatcher("create_module.jsp").forward(request, response);
+				request.getRequestDispatcher("project.jsp").forward(request, response);
 			} catch (ServletException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
