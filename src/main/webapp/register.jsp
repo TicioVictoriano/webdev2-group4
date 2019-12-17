@@ -11,9 +11,9 @@
     <title>register</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" type="text/css" rel="stylesheet">
-    <link rel="stylesheet" href="resources/css/icheck-bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="resources/dist/css/icheck-bootstrap.min.css" type="text/css" rel="stylesheet">
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" type="text/css" rel="stylesheet">
-    <link rel="stylesheet" href="resources/css/adminlte.min.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="resources/dist/css/adminlte.min.css" type="text/css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
     <body class="hold-transition register-page">
@@ -76,19 +76,7 @@
                     </div>
                 </form>
 
-                <div class="social-auth-links text-center">
-                    <p>- OR -</p>
-                    <a href="#" class="btn btn-block btn-primary">
-                        <i class="fab fa-facebook mr-2"></i>
-                        Sign up using Facebook
-                    </a>
-                    <a href="#" class="btn btn-block btn-danger">
-                        <i class="fab fa-google-plus mr-2"></i>
-                        Sign up using Google+
-                    </a>
-                </div>
-
-                <a href="login.jsp" class="text-center">I already have a membership</a>
+                <a href="/login" class="text-center">I already have an account! <b>login</b></a>
             </div>
             <!-- /.form-box -->
             </div><!-- /.card -->
@@ -96,11 +84,11 @@
     <!-- /.register-box -->
 
         <!-- jQuery -->
-        <script src="resources/js/jquery.min.js"></script>
+        <script src="resources/dist/js/jquery.min.js"></script>
         <!-- Bootstrap 4 -->
-        <script src="resources/js/bootstrap.bundle.min.js"></script>
+        <script src="resources/dist/js/bootstrap.bundle.min.js"></script>
         <!-- AdminLTE App -->
-        <script src="resources/js/adminlte.min.js"></script>
+        <script src="resources/dist/js/adminlte.min.js"></script>
 
     </body>
 </html>
